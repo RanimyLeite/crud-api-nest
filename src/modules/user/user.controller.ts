@@ -13,8 +13,8 @@ export class UserController {
         return { id: createUser.id, message: 'Usuário criado com sucesso!' };
     }
 
-    //@Get()
-    //async getUserList() {
-       //return this.userRepository.getUserList();
-    //}
+    @Get()
+    async getUserList() {
+       return this.userService.getUserList();
+    }
 }
