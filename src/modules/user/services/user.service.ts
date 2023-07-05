@@ -3,6 +3,7 @@ import { UserEntity } from "../domain/user.entity";
 import { CreateUserDTO } from "../dto/createUser.dto";
 import { UserRepository } from "../repositories/user.repository";
 import { v4 as uuid } from 'uuid';
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class UserService {
@@ -11,14 +12,15 @@ export class UserService {
 
     async createUser(user: CreateUserDTO) {
 
-        const newUser = new UserEntity();
-        newUser.name = user.name;
-        newUser.email = user.email;
-        newUser.password = user.password;
+        const newUser: UserEntity = plainToClass(UserEntity, user);
+
         newUser.id = uuid();
-
         this.userRepository.createUser(newUser);
-
+        
         return newUser;
+    }
+
+    async getUserList() {
+        return this.userRepository.getUserList();
     }
 }
