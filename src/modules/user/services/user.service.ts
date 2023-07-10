@@ -12,11 +12,12 @@ export class UserService {
 
     async createUser(user: CreateUserDTO) {
 
+        //Mapeando do DTO para userEntity
         const newUser: UserEntity = plainToClass(UserEntity, user);
 
         newUser.id = uuid();
         this.userRepository.createUser(newUser);
-        
+
         return newUser;
     }
 
